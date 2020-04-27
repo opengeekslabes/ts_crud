@@ -1,10 +1,12 @@
 import React, { useState  } from 'react';
+import { useHistory } from "react-router-dom";
 import "./index.css";
 
-function AutorisationForm(): JSX.Element {
-
+const AutorisationForm: React.FC = () => {
+    
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
+    let history = useHistory();
 
     const handleSubmit = (event: { preventDefault: () => void; }): void => {
         event.preventDefault();
@@ -14,10 +16,7 @@ function AutorisationForm(): JSX.Element {
         } else {
           return alert("Fail");
         }
-    
-        setEmail("");
-        setPassword("");
-        window.location.href = "/app";
+        history.replace('/App')
       };    
 
     return (

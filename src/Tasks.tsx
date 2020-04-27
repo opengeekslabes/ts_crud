@@ -20,51 +20,51 @@ function Tasks (props: { errorMessage: string }): JSX.Element {
         }
         setArr(arr => [...arr, {key: Date.now(), value: value}])
         setValue("")
-      };
-
-    const handleRemove = (ind: number): void => {
-    let id: number = arr[ind].key;
-
-    if (doneIndexArr.includes(id)) {
-        let del: number = doneIndexArr.indexOf(id);
-        doneIndexArr.splice(del, 1);
-    }
-
-    let result: arrType[] = arr.filter((_item, index) => {
-    return ind !== index
-    });
-
-    setArr(result)
-    setDoneIndexArr(doneIndexArr);
     };
 
-    const handleEdit = (_item: string, index: React.SetStateAction<number>): void => {
-     setEditIndex(index);
+    const handleRemove = (ind: number): void => {
+        const id: number = arr[ind].key;
+
+        if (doneIndexArr.includes(id)) {
+            let del: number = doneIndexArr.indexOf(id);
+            doneIndexArr.splice(del, 1);
+        }
+
+        const result: arrType[] = arr.filter((_item, index) => {
+        return ind !== index
+        });
+
+        setArr(result)
+        setDoneIndexArr(doneIndexArr);
+    };
+
+    const handleEdit = (_item: string, index: number): void => {
+        setEditIndex(index);
     };
 
     const handleSave = (item: string, index: number): void => {
-        let value: string = !editAreaValue ? item : editAreaValue;
+        const value: string = !editAreaValue ? item : editAreaValue;
         arr[index].value = value;
         setEditIndex(-1);
     };
 
     const handleDone = (index: number): void => {
-        let id: number = arr[index].key;
-        let newArr: number[] = doneIndexArr.slice();
+        const id: number = arr[index].key;
+        const newArr: number[] = doneIndexArr.slice();
     
-        let del: number = newArr.indexOf(id);
+        const del: number = newArr.indexOf(id);
         newArr.includes(id)
           ? newArr.splice(del, 1)
           : newArr.push(id);
         setDoneIndexArr(newArr)
     };
 
-    let arrValues: string[] = [];
-    let arrKeys: number[] = [];
+    const arrValues: string[] = [];
+    const arrKeys: number[] = [];
   
-    for (let item of arr) {
-      arrValues.push(item.value);
-      arrKeys.push(item.key);
+    for (const item of arr) {
+        arrValues.push(item.value);
+        arrKeys.push(item.key);
     }
 
     return (
@@ -74,7 +74,7 @@ function Tasks (props: { errorMessage: string }): JSX.Element {
             className="form-control"
             value={value}
             name="value"
-            // rows="2"
+            rows={2}
             onChange={(e) => { setValue(e.target.value)} }
             />
             <button
@@ -98,7 +98,7 @@ function Tasks (props: { errorMessage: string }): JSX.Element {
                     className="h6"
                     name="editArea"
                     id="editArea"
-                    // rows="2"
+                    rows={2}
                     defaultValue={item}
                     onChange={(e) => { setAreaValue(e.target.value)} } 
                     />
